@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Under Construction</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    color-scheme: light dark;
+    --bg: #f4f2ec;
+    --grid-line: #dedad0;
+    --surface: #ffffff;
+    --text: #1c1a16;
+    --text-muted: #6b665c;
+    --accent: #d98e04;
+    --accent-ink: #1c1a16;
+    --rule: #d3cec2;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16150f;
+      --grid-line: #2a281e;
+      --surface: #1e1c15;
+      --text: #f2efe6;
+      --text-muted: #a39c8b;
+      --accent: #f2a900;
+      --accent-ink: #16150f;
+      --rule: #37341f;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #16150f;
+    --grid-line: #2a281e;
+    --surface: #1e1c15;
+    --text: #f2efe6;
+    --text-muted: #a39c8b;
+    --accent: #f2a900;
+    --accent-ink: #16150f;
+    --rule: #37341f;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 40px 40px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 40px 40px,
+      var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 620px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    box-shadow: 0 20px 60px -30px rgba(0,0,0,0.35);
+  }
+
+  .stripe {
+    height: 10px;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--accent) 0 14px,
+      var(--accent-ink) 14px 28px
+    );
+  }
+
+  .content {
+    padding: clamp(28px, 6vw, 56px);
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 22px;
+  }
+
+  .eyebrow .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex: none;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eyebrow .dot { animation: none; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(34px, 6vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0 0 18px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  p.lede {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 46ch;
+    margin: 0 0 32px;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 12px;
+  }
+
+  .meta dt {
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 6px;
+  }
+
+  .meta dd {
+    margin: 0;
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="stripe" aria-hidden="true"></div>
+    <div class="content">
+      <p class="eyebrow"><span class="dot"></span>Status: building</p>
+      <h1>Something new is <em>under construction</em>.</h1>
+      <p class="lede">This site is being rebuilt from the ground up. Check back soon — in the meantime, feel free to reach out directly.</p>
+      <dl class="meta">
+        <div>
+          <dt>Phase</dt>
+          <dd>Foundation &amp; framing</dd>
+        </div>
+        <div>
+          <dt>Expected</dt>
+          <dd>Coming soon</dd>
+        </div>
+        <div>
+          <dt>Contact</dt>
+          <dd>itguya77@gmail.com</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</body>
+</html>
