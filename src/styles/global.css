@@ -397,8 +397,8 @@ em { font-family: var(--f-display); font-style: italic; font-weight: 400; }
 .svc__body { display: grid; gap: 18px; justify-items: start; max-width: 62ch; padding-bottom: clamp(24px, 3vw, 36px); }
 .svc__body > p { font-size: 1.04rem; line-height: 1.65; color: var(--ink); }
 .svc__points { display: grid; gap: 8px; }
-.svc__points li { position: relative; padding-left: 22px; font-size: 0.98rem; color: var(--ink-soft); }
-.svc__points li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; border-radius: 50%; background: var(--marigold); box-shadow: 0 0 0 1.5px var(--black); }
+.svc__points li { position: relative; padding-left: 28px; font-size: 0.98rem; color: var(--ink-soft); }
+.svc__points li::before { content: ''; position: absolute; left: 4px; top: 0.55em; width: 8px; height: 8px; border-radius: 50%; background: var(--marigold); box-shadow: 0 0 0 1.5px var(--black); }
 
 @media (min-width: 960px) {
   .services__grid { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(48px, 8vw, 120px); }
