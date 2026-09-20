@@ -53,15 +53,6 @@ function sample(pts, n, closed) {
 }
 const place = (pts, cx, cy, s, rot) => pts.map(([x, y]) => [cx + (x * Math.cos(rot) - y * Math.sin(rot)) * s, cy + (x * Math.sin(rot) + y * Math.cos(rot)) * s]);
 
-// small filled heart glyph (used for the "like" moments)
-function heartPath(ctx, x, y, s) {
-  ctx.beginPath();
-  ctx.moveTo(x, y + s * 0.95);
-  ctx.bezierCurveTo(x + s * 1.7, y - s * 0.15, x + s * 0.95, y - s * 1.3, x, y - s * 0.4);
-  ctx.bezierCurveTo(x - s * 0.95, y - s * 1.3, x - s * 1.7, y - s * 0.15, x, y + s * 0.95);
-  ctx.closePath();
-}
-
 // ---- the four formations, for a canvas of W x H css pixels -------------------------------------
 function layout(W, H) {
   const padX = W * 0.07;
@@ -384,7 +375,7 @@ export function initHeroStory(root, { reduced = false } = {}) {
       ctx.beginPath(); ctx.arc(ox, oy, 12 + pulse * 22, 0, 6.283); ctx.stroke();
     }
 
-    // Growth: baseline + trend line + a like on top
+    // Growth: baseline + trend line
     if (lw[3] > 0.01) {
       const a = lw[3] * gate(3);
       ctx.globalAlpha = a * 0.35;
@@ -411,11 +402,6 @@ export function initHeroStory(root, { reduced = false } = {}) {
           ctx.moveTo(x1, y1);
           ctx.lineTo(x1 - Math.cos(ang + 0.5) * 14, y1 - Math.sin(ang + 0.5) * 14);
           ctx.stroke();
-          // the like
-          const bounce = reduced ? 1 : 1 + 0.1 * Math.sin(clock * 4);
-          heartPath(ctx, x1 - 30, y1 - 6, 9 * pop * bounce);
-          ctx.fillStyle = `rgb(${GOLD})`; ctx.fill();
-          ctx.lineWidth = 2; ctx.strokeStyle = `rgb(${INK})`; ctx.stroke();
         }
       }
     }
