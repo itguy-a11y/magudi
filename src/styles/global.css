@@ -275,7 +275,7 @@ em { font-style: normal; }
 .step__bar i { display: block; height: 100%; background: var(--blue); border-radius: 3px; transform: scaleX(0); transform-origin: left; }
 .step__word {
   display: block; font-family: var(--f-display); font-weight: 600;
-  font-size: clamp(1rem, 1.5vw, 1.2rem); line-height: 1.2; letter-spacing: -0.02em;
+  font-size: clamp(1.15rem, 1.75vw, 1.45rem); line-height: 1.2; letter-spacing: -0.025em;
   color: rgba(0, 0, 0, 0.36); transition: color 0.4s var(--ease);
 }
 .step:hover .step__word { color: var(--ink); }

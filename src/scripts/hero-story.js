@@ -82,20 +82,19 @@ function layout(W, H) {
     put(at(sample(glass, 44, false)), 2.2);
     put(at([...sample([[-0.44, 0.44], [-0.3, 0.78]], 5, false), ...sample([[0.44, 0.44], [0.3, 0.78]], 5, false)]), 2.2);
     [0.9, 1.02, 1.14].forEach((y, n) => put(at(sample([[-0.3 + n * 0.03, y], [0.3 - n * 0.03, y]], 8, false)), 2.4));
+    extra.filFrom = i;
     put(at([
       ...sample([[-0.13, 0.62], [-0.13, 0.1]], 4, false),
       ...sample([[0.13, 0.62], [0.13, 0.1]], 4, false),
       ...sample([[-0.13, 0.1], [-0.065, -0.12], [0, 0.06], [0.065, -0.12], [0.13, 0.1]], 7, false),
     ]), 2.8);
-    extra.rays = [];
+    extra.filTo = i;
     [-165, -135, -105, -75, -45, -15].forEach((deg) => {
       const a = (deg * Math.PI) / 180;
       put(at([1.0, 1.15, 1.3, 1.45].map((r) => [Math.cos(a) * r, Math.sin(a) * r])), 2.4, 1, true);
-      const [x0, y0] = at([[Math.cos(a) * 0.95, Math.sin(a) * 0.95]])[0];
-      const [x1, y1] = at([[Math.cos(a) * 1.5, Math.sin(a) * 1.5]])[0];
-      extra.rays.push([x0, y0, x1, y1]);
     });
     extra.rayK = rayK;
+    extra.ambientFrom = i;
 
     // the rest: loose thoughts that keep clear of the bulb
     for (; i < N; i++) {
@@ -122,8 +121,10 @@ function layout(W, H) {
     const yAt = (k) => top + ((bottom - top) * k) / 7;
     const wAt = (k) => fw * (1 - (0.76 * k) / 7);
     let i = 0;
+    extra.rowOf = new Int8Array(N).fill(-1);
     counts.forEach((n, k) => {
       for (let j = 0; j < n; j++, i++) {
+        extra.rowOf[i] = k;
         s.x[i] = fcx - wAt(k) / 2 + ((j + 0.5) / n) * wAt(k);
         s.y[i] = yAt(k);
         s.r[i] = 3; s.h[i] = 1; s.a[i] = 0.95;
@@ -330,19 +331,7 @@ export function initHeroStory(root, { reduced = false } = {}) {
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    // Ideas: straight blue rays from the bulb, blinking
-    if (lw[0] > 0.01) {
-      const on = cur === 0 ? smooth(clamp01((stageT - MORPH_SECONDS * 0.9) / 0.5)) : 1;
-      const blink = reduced ? 1 : 0.12 + 0.88 * Math.max(0, Math.sin(clock * 3.6));
-      ctx.strokeStyle = `rgb(${BLUE})`;
-      ctx.lineWidth = 2.4;
-      ctx.globalAlpha = lw[0] * on * blink * 0.9;
-      ctx.beginPath();
-      extra.rays.forEach(([x0, y0, x1, y1]) => { ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); });
-      ctx.stroke();
-    }
-
-    // Strategy: funnel outline, its labels, and a blue line sweeping down
+    // Strategy: funnel outline and its labels
     if (lw[1] > 0.01) {
       const a = lw[1] * gate(1);
       ctx.globalAlpha = a * 0.5;
@@ -365,18 +354,6 @@ export function initHeroStory(root, { reduced = false } = {}) {
         ctx.fillStyle = `rgb(${INK})`;
         ctx.fillText(lb.text, extra.labelX, lb.y);
       });
-
-      const frac = reduced ? 0.5 : (clock * 0.38) % 1;
-      const sweepY = extra.funnelTop + frac * extra.funnelH;
-      const half = extra.funnelHalf(sweepY);
-      const edge = Math.sin(Math.PI * frac);
-      ctx.strokeStyle = `rgb(${BLUE})`;
-      ctx.lineWidth = 10;
-      ctx.globalAlpha = a * edge * 0.2;
-      ctx.beginPath(); ctx.moveTo(extra.funnelCx - half, sweepY); ctx.lineTo(extra.funnelCx + half, sweepY); ctx.stroke();
-      ctx.lineWidth = 2.6;
-      ctx.globalAlpha = a * edge;
-      ctx.beginPath(); ctx.moveTo(extra.funnelCx - half, sweepY); ctx.lineTo(extra.funnelCx + half, sweepY); ctx.stroke();
     }
 
     // Visibility: the reach front spreads out and connects everyone it touches
@@ -438,7 +415,15 @@ export function initHeroStory(root, { reduced = false } = {}) {
     // the dots
     const [ox, oy] = extra.centre;
     const R = lw[2] > 0.01 ? frontRadius() : 0;
-    const funnelPulse = extra.funnelTop + (reduced ? 0.5 : (clock * 0.38) % 1) * extra.funnelH;
+    // Ideas: a spark in the filament, then a pulse of light travelling out along the rays
+    const cycle = reduced ? 0.4 : (clock * 0.75) % 1;
+    const ideasOn = cur === 0 ? smooth(clamp01((stageT - MORPH_SECONDS * 0.9) / 0.5)) : 1;
+    const tierPos = cycle * 5.2 - 0.6;
+    // Strategy: one row of dots at a time turns blue, from the top row down
+    const rowT = Math.max(0, stageT - MORPH_SECONDS * 0.9) * 2.6;
+    const blueRow = Math.floor(rowT) % 9;
+    const rowU = rowT % 1;
+    const rowFade = reduced ? 0 : Math.min(1, rowU / 0.18, (1 - rowU) / 0.18);
     const wob = reduced ? 0 : W * 0.012;
 
     for (let i = 0; i < N; i++) {
@@ -451,20 +436,30 @@ export function initHeroStory(root, { reduced = false } = {}) {
 
       let blueT = 0;
 
-      // Ideas: the bulb switches on and its blue rays blink outward
-      const rk = extra.rayK[i];
-      if (rk >= 0 && lw[0] > 0.01) {
-        const on = cur === 0 ? smooth(clamp01((stageT - MORPH_SECONDS * 0.9) / 0.5)) : 1;
-        const flash = reduced ? 1 : 0.12 + 0.88 * Math.max(0, Math.sin(clock * 3.6 - rk * 0.35));
-        alpha *= mix(1, on * flash, lw[0]);
-        blueT = Math.max(blueT, on * lw[0]);
+      // Ideas
+      if (lw[0] > 0.01) {
+        const w0 = lw[0] * ideasOn;
+        const rk = extra.rayK[i];
+        if (rk >= 0) {
+          // light pulse: each ray's dots turn blue in turn, moving outward
+          const q = (rk - tierPos) / 0.62;
+          const b = Math.exp(-q * q) * w0;
+          blueT = Math.max(blueT, b); r *= 1 + b * 0.5; alpha *= mix(1, 0.45 + 0.55 * b, lw[0]);
+        } else if (i >= extra.filFrom && i < extra.filTo) {
+          // the spark: filament glows blue as each pulse starts
+          const b = Math.max(0, 1 - cycle * 2.2) * w0;
+          blueT = Math.max(blueT, b); r *= 1 + b * 0.45;
+        } else if (i >= extra.ambientFrom && !reduced) {
+          // thoughts popping: loose dots flicker blue now and then
+          const f = Math.pow(Math.max(0, Math.sin(clock * 1.25 + d.px * 3)), 14) * w0;
+          blueT = Math.max(blueT, f); r *= 1 + f * 0.7; alpha = Math.max(alpha, f * 0.9);
+        }
       }
 
-      // Strategy: the dots the blue line passes turn blue for a moment
-      if (lw[1] > 0.01) {
-        const q = (y - funnelPulse) / (H * 0.04);
-        const b = Math.exp(-q * q) * lw[1] * gate(1);
-        blueT = Math.max(blueT, b); r *= 1 + b * 0.35;
+      // Strategy: one row of dots is blue at a time, moving down
+      if (lw[1] > 0.01 && extra.rowOf[i] === blueRow) {
+        const b = rowFade * lw[1] * gate(1);
+        blueT = Math.max(blueT, b); r *= 1 + b * 0.3;
       }
 
       // Visibility: dots become clearer, larger and blue as the reach front arrives
