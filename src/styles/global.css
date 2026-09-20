@@ -177,6 +177,7 @@ em { font-style: normal; }
   width: min(100% - 2 * var(--gutter), 1120px);
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   height: 60px; padding: 0 9px 0 18px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74); /* stays readable when it floats over the dark sections */
 }
 .brand { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; }
 .brand__mark { width: 34px; height: 34px; }
@@ -187,10 +188,20 @@ em { font-style: normal; }
 .nav a {
   display: inline-flex; align-items: center; min-height: 40px; padding: 0 15px; border-radius: 999px;
   font-size: 0.9rem; font-weight: 500; color: var(--ink);
-  transition: background-color 0.3s var(--ease);
+  border: 1px solid transparent;
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
-.nav a:hover { background: rgba(0, 0, 0, 0.05); }
-.nav a[aria-current] { background: rgba(0, 0, 0, 0.08); font-weight: 600; }
+.nav a:hover { background: rgba(0, 113, 227, 0.07); color: #0060c8; }
+/* selected: a blue glass pill — blue tint, bright top edge, soft blue glow */
+.nav a[aria-current] {
+  font-weight: 600; color: #0060c8;
+  background: rgba(0, 113, 227, 0.14);
+  border-color: rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 0 0 1px rgba(0, 113, 227, 0.22),
+    0 4px 14px rgba(0, 113, 227, 0.2);
+}
 
 .site-header__cta { display: none; }
 
