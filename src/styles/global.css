@@ -172,7 +172,7 @@ em { font-family: var(--f-display); font-style: italic; font-weight: 400; }
   background: var(--marigold); transform: scaleX(0); transform-origin: left;
   transition: transform 0.45s var(--ease);
 }
-.nav a:hover::after, .nav a[aria-current='page']::after { transform: scaleX(1); }
+.nav a:hover::after, .nav a[aria-current]::after { transform: scaleX(1); }
 
 .site-header__cta { display: none; }
 

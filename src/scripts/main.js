@@ -20,6 +20,37 @@ function initHeader() {
   update();
 }
 
+// Nav highlight follows the section you are reading (home page only).
+function initNavSpy() {
+  const links = [...document.querySelectorAll('.nav a')];
+  const items = links
+    .map((a) => {
+      const url = new URL(a.href, location.href);
+      if (url.pathname !== '/') return null;
+      const el = document.getElementById(url.hash ? url.hash.slice(1) : 'home');
+      return el ? { a, el } : null;
+    })
+    .filter(Boolean)
+    .sort((x, y) => x.el.getBoundingClientRect().top - y.el.getBoundingClientRect().top);
+  if (!items.length) return;
+
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const line = window.innerHeight * 0.35;
+    let active = items[0];
+    for (const it of items) if (it.el.getBoundingClientRect().top <= line) active = it;
+    // at the very bottom, the last section wins even if it is short
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) active = items[items.length - 1];
+    links.forEach((a) => (a === active.a ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current')));
+  };
+  const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue);
+  window.addEventListener('hashchange', queue);
+  update();
+}
+
 function initMenu() {
   const toggle = document.querySelector('[data-menu-toggle]');
   const menu = document.querySelector('[data-menu]');
@@ -111,6 +142,7 @@ function boot() {
     initHeader();
     initMenu();
     initServices();
+    initNavSpy();
     if (motion) {
       initReveals();
       initCounters();
