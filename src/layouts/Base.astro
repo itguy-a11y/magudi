@@ -24,10 +24,8 @@ const {
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <script is:inline>
-      document.documentElement.classList.add('js');
-      document.documentElement.classList.add(
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'no-motion' : 'motion-ok'
-      );
+      // animations are always on, regardless of the device's motion setting
+      document.documentElement.classList.add('js', 'motion-ok');
     </script>
   </head>
   <body>

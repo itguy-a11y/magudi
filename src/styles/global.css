@@ -622,8 +622,3 @@ em { font-family: var(--f-display); font-style: italic; font-weight: 400; }
   font-size: clamp(2.8rem, 8vw, 7rem); line-height: 1; letter-spacing: -0.035em;
 }
 .page-hero__title em { color: var(--copper); }
-
-/* ---------- Reduced motion ---------- */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
-}
