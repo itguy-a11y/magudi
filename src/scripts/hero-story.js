@@ -87,9 +87,13 @@ function layout(W, H) {
       ...sample([[0.13, 0.62], [0.13, 0.1]], 4, false),
       ...sample([[-0.13, 0.1], [-0.065, -0.12], [0, 0.06], [0.065, -0.12], [0.13, 0.1]], 7, false),
     ]), 2.8);
+    extra.rays = [];
     [-165, -135, -105, -75, -45, -15].forEach((deg) => {
       const a = (deg * Math.PI) / 180;
       put(at([1.0, 1.15, 1.3, 1.45].map((r) => [Math.cos(a) * r, Math.sin(a) * r])), 2.4, 1, true);
+      const [x0, y0] = at([[Math.cos(a) * 0.95, Math.sin(a) * 0.95]])[0];
+      const [x1, y1] = at([[Math.cos(a) * 1.5, Math.sin(a) * 1.5]])[0];
+      extra.rays.push([x0, y0, x1, y1]);
     });
     extra.rayK = rayK;
 
@@ -119,12 +123,10 @@ function layout(W, H) {
     const wAt = (k) => fw * (1 - (0.76 * k) / 7);
     let i = 0;
     counts.forEach((n, k) => {
-      const hh = clamp01((k - 4) / 3);
       for (let j = 0; j < n; j++, i++) {
         s.x[i] = fcx - wAt(k) / 2 + ((j + 0.5) / n) * wAt(k);
         s.y[i] = yAt(k);
-        s.r[i] = hh > 0.6 ? 3 : 2;
-        s.h[i] = hh; s.a[i] = 0.85;
+        s.r[i] = 3; s.h[i] = 1; s.a[i] = 0.95;
       }
     });
     const gap = 12;
@@ -141,6 +143,8 @@ function layout(W, H) {
     extra.labelX = W - padX * 0.5;
     extra.funnelTop = top;
     extra.funnelH = bottom - top;
+    extra.funnelCx = fcx;
+    extra.funnelHalf = (y) => wAt(clamp01((y - top) / (bottom - top)) * 7) / 2 + gap;
   }
 
   // 2 — Visibility: a network spreading outward, reaching more and more of the audience
@@ -193,8 +197,8 @@ function layout(W, H) {
           s.x[i] = x0 + b * 3 * cellPx + (col + 0.5) * cellPx;
           s.y[i] = base - (row + 0.5) * cellPx;
           s.r[i] = Math.min(4.2, cellPx * 0.28);
-          s.a[i] = 0.9;
-          if (row === rows - 1) { s.h[i] = b === heights.length - 1 ? 1 : 0.55; s.r[i] += 0.6; }
+          s.a[i] = 0.95; s.h[i] = 1;
+          if (row === rows - 1) s.r[i] += 0.6;
         }
       }
       tops.push([x0 + b * 3 * cellPx + cellPx, base - rows * cellPx - cellPx * 0.9]);
@@ -326,7 +330,19 @@ export function initHeroStory(root, { reduced = false } = {}) {
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
 
-    // Strategy: funnel outline and its labels
+    // Ideas: straight blue rays from the bulb, blinking
+    if (lw[0] > 0.01) {
+      const on = cur === 0 ? smooth(clamp01((stageT - MORPH_SECONDS * 0.9) / 0.5)) : 1;
+      const blink = reduced ? 1 : 0.12 + 0.88 * Math.max(0, Math.sin(clock * 3.6));
+      ctx.strokeStyle = `rgb(${BLUE})`;
+      ctx.lineWidth = 2.4;
+      ctx.globalAlpha = lw[0] * on * blink * 0.9;
+      ctx.beginPath();
+      extra.rays.forEach(([x0, y0, x1, y1]) => { ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); });
+      ctx.stroke();
+    }
+
+    // Strategy: funnel outline, its labels, and a blue line sweeping down
     if (lw[1] > 0.01) {
       const a = lw[1] * gate(1);
       ctx.globalAlpha = a * 0.5;
@@ -349,6 +365,18 @@ export function initHeroStory(root, { reduced = false } = {}) {
         ctx.fillStyle = `rgb(${INK})`;
         ctx.fillText(lb.text, extra.labelX, lb.y);
       });
+
+      const frac = reduced ? 0.5 : (clock * 0.38) % 1;
+      const sweepY = extra.funnelTop + frac * extra.funnelH;
+      const half = extra.funnelHalf(sweepY);
+      const edge = Math.sin(Math.PI * frac);
+      ctx.strokeStyle = `rgb(${BLUE})`;
+      ctx.lineWidth = 10;
+      ctx.globalAlpha = a * edge * 0.2;
+      ctx.beginPath(); ctx.moveTo(extra.funnelCx - half, sweepY); ctx.lineTo(extra.funnelCx + half, sweepY); ctx.stroke();
+      ctx.lineWidth = 2.6;
+      ctx.globalAlpha = a * edge;
+      ctx.beginPath(); ctx.moveTo(extra.funnelCx - half, sweepY); ctx.lineTo(extra.funnelCx + half, sweepY); ctx.stroke();
     }
 
     // Visibility: the reach front spreads out and connects everyone it touches
@@ -385,10 +413,10 @@ export function initHeroStory(root, { reduced = false } = {}) {
 
       const p = drawIn(3, 0.1, 1.8);
       if (p > 0) {
-        ctx.globalAlpha = lw[3];
-        ctx.strokeStyle = `rgb(${GOLD})`; ctx.lineWidth = 8;
+        ctx.strokeStyle = `rgb(${BLUE})`;
+        ctx.globalAlpha = lw[3] * 0.2; ctx.lineWidth = 10;
         strokePartial(ctx, extra.trend, p);
-        ctx.strokeStyle = `rgb(${INK})`; ctx.lineWidth = 2;
+        ctx.globalAlpha = lw[3]; ctx.lineWidth = 3.2;
         strokePartial(ctx, extra.trend, p);
         if (p > 0.97) {
           const n = extra.trend.length;
@@ -410,7 +438,7 @@ export function initHeroStory(root, { reduced = false } = {}) {
     // the dots
     const [ox, oy] = extra.centre;
     const R = lw[2] > 0.01 ? frontRadius() : 0;
-    const funnelPulse = extra.funnelTop + ((clock * 0.38) % 1) * extra.funnelH;
+    const funnelPulse = extra.funnelTop + (reduced ? 0.5 : (clock * 0.38) % 1) * extra.funnelH;
     const wob = reduced ? 0 : W * 0.012;
 
     for (let i = 0; i < N; i++) {
@@ -421,28 +449,30 @@ export function initHeroStory(root, { reduced = false } = {}) {
       let h = ch[i];
       let alpha = ca[i];
 
-      // Ideas: the bulb switches on and its rays flash outward
+      let blueT = 0;
+
+      // Ideas: the bulb switches on and its blue rays blink outward
       const rk = extra.rayK[i];
       if (rk >= 0 && lw[0] > 0.01) {
         const on = cur === 0 ? smooth(clamp01((stageT - MORPH_SECONDS * 0.9) / 0.5)) : 1;
-        const flash = reduced ? 1 : 0.3 + 0.7 * Math.max(0, Math.sin(clock * 3.6 - rk * 1.1));
+        const flash = reduced ? 1 : 0.12 + 0.88 * Math.max(0, Math.sin(clock * 3.6 - rk * 0.35));
         alpha *= mix(1, on * flash, lw[0]);
+        blueT = Math.max(blueT, on * lw[0]);
       }
 
-      // Strategy: a pulse runs down the funnel
-      if (lw[1] > 0.01 && !reduced) {
-        const q = (y - funnelPulse) / (H * 0.06);
+      // Strategy: the dots the blue line passes turn blue for a moment
+      if (lw[1] > 0.01) {
+        const q = (y - funnelPulse) / (H * 0.04);
         const b = Math.exp(-q * q) * lw[1] * gate(1);
-        h = Math.max(h, b); r *= 1 + b * 0.6;
+        blueT = Math.max(blueT, b); r *= 1 + b * 0.35;
       }
 
       // Visibility: dots become clearer, larger and blue as the reach front arrives
-      let blueT = 0;
       if (lw[2] > 0.01) {
         const reach = smooth(clamp01((R - Math.hypot(x - ox, y - oy)) / (extra.maxR * 0.09)));
         alpha *= mix(1, 0.28 + 0.72 * reach, lw[2]);
         r *= 1 + reach * 0.55 * lw[2];
-        blueT = reach * lw[2];
+        blueT = Math.max(blueT, reach * lw[2]);
       }
 
       alpha *= clamp01(intro / 1.1 - d.delay * 0.6);

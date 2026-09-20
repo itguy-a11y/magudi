@@ -89,8 +89,8 @@ html.lenis, html.lenis body { height: auto; }
   background: radial-gradient(circle, rgba(253, 184, 19, 0.55), rgba(253, 184, 19, 0) 62%);
 }
 .ambient i:nth-child(2) {
-  width: 74vmax; height: 74vmax; left: -34vmax; bottom: -36vmax;
-  background: radial-gradient(circle, rgba(0, 113, 227, 0.3), rgba(0, 113, 227, 0) 62%);
+  width: 56vmax; height: 56vmax; left: -30vmax; bottom: -32vmax;
+  background: radial-gradient(circle, rgba(0, 113, 227, 0.12), rgba(0, 113, 227, 0) 62%);
 }
 .ambient i:nth-child(3) {
   width: 46vmax; height: 46vmax; left: 8%; top: 32%;
@@ -115,7 +115,7 @@ html.lenis, html.lenis body { height: auto; }
 /* ---------- Type ---------- */
 .h2 {
   font-family: var(--f-display); font-weight: 650;
-  font-size: clamp(2rem, 4.6vw, 3.6rem); line-height: 1.02; letter-spacing: -0.04em; text-wrap: balance;
+  font-size: clamp(2.4rem, 5.6vw, 4.5rem); line-height: 1; letter-spacing: -0.045em; text-wrap: balance;
 }
 .lead { color: var(--ink-soft); font-size: clamp(1.0625rem, 1.3vw, 1.2rem); line-height: 1.55; max-width: 46ch; }
 .eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); }
@@ -345,7 +345,7 @@ em { font-style: normal; }
 /* ---------- Why Makudi (dark, with the logo mark under dark glass) ---------- */
 .why { position: relative; overflow: hidden; isolation: isolate; background: var(--black); color: var(--white); padding-block: clamp(72px, 10vw, 148px); }
 .why::before, .why::after { content: ''; position: absolute; z-index: -1; border-radius: 50%; pointer-events: none; }
-.why::before { width: 60vmax; height: 60vmax; left: -28vmax; bottom: -34vmax; background: radial-gradient(circle, rgba(0, 113, 227, 0.4), rgba(0, 113, 227, 0) 62%); }
+.why::before { width: 60vmax; height: 60vmax; left: -28vmax; bottom: -34vmax; background: radial-gradient(circle, rgba(0, 113, 227, 0.2), rgba(0, 113, 227, 0) 62%); }
 .why::after { width: 46vmax; height: 46vmax; right: -12vmax; top: -22vmax; background: radial-gradient(circle, rgba(253, 184, 19, 0.28), rgba(253, 184, 19, 0) 62%); }
 .why__mark { position: absolute; z-index: -1; right: max(-8vw, -90px); top: 50%; translate: 0 -50%; width: min(70vw, 620px); height: auto; opacity: 0.9; will-change: transform; }
 .why__grid { display: grid; gap: clamp(28px, 4vw, 56px); align-items: center; }
@@ -532,7 +532,6 @@ em { font-style: normal; }
   font-size: clamp(2.5rem, 6.8vw, 6rem); line-height: 0.98; letter-spacing: -0.05em; text-wrap: balance;
 }
 .cta__title span, .cta__title em { display: block; }
-.cta__title em { display: inline-block; margin-top: 0.06em; padding: 0 0.16em 0.04em; border-radius: 0.2em; background: rgba(255, 255, 255, 0.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .cta__side { display: grid; gap: 22px; justify-items: start; padding: clamp(20px, 2.6vw, 30px); border-radius: var(--r-md); background: rgba(255, 255, 255, 0.4); border-color: rgba(255, 255, 255, 0.6); box-shadow: none; }
 .cta__side p { font-size: clamp(1.03rem, 1.3vw, 1.15rem); }
 
