@@ -1,0 +1,35 @@
+---
+import { testimonials } from '../data/site.js';
+const initials = (n) => n.split(' ').map((p) => p[0]).join('');
+const [first, ...rest] = testimonials.items;
+---
+<section class="section voices" id="clients">
+  <div class="container">
+    <div class="sec-head">
+      <h2 class="h2" data-reveal>{testimonials.title}</h2>
+      <p class="lead" data-reveal style="--r:1">{testimonials.lead}</p>
+    </div>
+
+    <div class="voices__grid">
+      <figure class="quote quote--lead" data-reveal>
+        <blockquote><p>{first.quote}</p></blockquote>
+        <figcaption>
+          <span class="avatar" aria-hidden="true">{initials(first.name)}</span>
+          <span><strong>{first.name}</strong><small>{first.role}</small></span>
+        </figcaption>
+      </figure>
+
+      <div class="voices__side">
+        {rest.map((q, i) => (
+          <figure class="quote" data-reveal style={`--r:${i + 1}`}>
+            <blockquote><p>{q.quote}</p></blockquote>
+            <figcaption>
+              <span class="avatar" aria-hidden="true">{initials(q.name)}</span>
+              <span><strong>{q.name}</strong><small>{q.role}</small></span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

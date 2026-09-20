@@ -1,0 +1,44 @@
+---
+import '@fontsource-variable/fraunces/wght.css';
+import '@fontsource-variable/fraunces/wght-italic.css';
+import '@fontsource-variable/inter-tight/wght.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const {
+  title = 'Makudi — Digital Marketing Agency in Kochi',
+  description = 'Makudi is a digital marketing agency in Kochi, Kerala. Social media, Google Ads, content, brand strategy and websites that help your business get noticed.',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#F6EFE2" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      document.documentElement.classList.add(
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'no-motion' : 'motion-ok'
+      );
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/main.js';
+    </script>
+  </body>
+</html>

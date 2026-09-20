@@ -1,0 +1,37 @@
+---
+import Icon from './Icon.astro';
+import { servicesIntro, services } from '../data/site.js';
+---
+<section class="section services" id="services">
+  <div class="container services__grid">
+    <div class="services__head">
+      <h2 class="h2" data-reveal>{servicesIntro.title}</h2>
+      <p class="lead" data-reveal style="--r:1">{servicesIntro.lead}</p>
+    </div>
+
+    <ul class="svc-list">
+      {services.map((s, i) => (
+        <li class:list={['svc', { 'is-open': i === 0 }]} data-svc data-reveal style={`--r:${i}`}>
+          <h3 class="svc__head">
+            <button type="button" id={`svc-btn-${i}`} aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`svc-panel-${i}`}>
+              <span class="svc__name">{s.name}</span>
+              <span class="svc__desc">{s.text}</span>
+              <span class="svc__icon" aria-hidden="true"><Icon name="plus" size={22} /></span>
+            </button>
+          </h3>
+          <div class="svc__more" id={`svc-panel-${i}`} role="region" aria-labelledby={`svc-btn-${i}`}>
+            <div class="svc__more-in">
+              <div class="svc__body">
+                <p>{s.help}</p>
+                <ul class="svc__points">
+                  {s.points.map((p) => <li>{p}</li>)}
+                </ul>
+                <a class="link-arrow" href="/#contact"><span>Talk to us about this</span><Icon name="arrow" size={18} /></a>
+              </div>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

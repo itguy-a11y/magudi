@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import mark from '../assets/logo-mark.png';
+import wordmark from '../assets/wordmark.png';
+import Icon from './Icon.astro';
+import { nav, cta } from '../data/site.js';
+
+const current = Astro.url.pathname;
+const isActive = (href) => (href === '/' ? current === '/' : href.startsWith('/blog') && current.startsWith('/blog'));
+---
+<header class="site-header" data-header>
+  <div class="container site-header__bar">
+    <a class="brand" href="/" aria-label="Makudi — home">
+      <Image class="brand__mark" src={mark} alt="" width={88} height={88} loading="eager" />
+      <Image class="brand__word" src={wordmark} alt="Makudi" width={200} loading="eager" />
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        {nav.map((item) => (
+          <li><a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <a class="btn btn--gold btn--sm site-header__cta" href="/#contact"><span>{cta.button}</span><Icon name="arrow" size={16} /></a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+      <span class="menu-toggle__label">Menu</span>
+      <span class="menu-toggle__bars" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+
+  <div class="menu" id="menu" data-menu hidden>
+    <ul>
+      {nav.map((item) => (
+        <li><a href={item.href} data-menu-link>{item.label}</a></li>
+      ))}
+    </ul>
+    <a class="btn btn--gold" href="/#contact" data-menu-link><span>{cta.button}</span><Icon name="arrow" size={16} /></a>
+  </div>
+</header>

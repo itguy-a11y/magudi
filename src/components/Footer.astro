@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-full-light.png';
+import Icon from './Icon.astro';
+import { nav, services, brand, tagline } from '../data/site.js';
+
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <Image class="footer__logo" src={logo} alt="Makudi" width={180} />
+        <p>{brand.tagline}</p>
+      </div>
+
+      <nav class="footer__col" aria-label="Quick links">
+        <h2>Quick Links</h2>
+        <ul>
+          {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="footer__col">
+        <h2>Our Services</h2>
+        <ul>
+          {services.map((s) => <li><a href="/#services">{s.name}</a></li>)}
+        </ul>
+      </div>
+
+      <div class="footer__col footer__col--social">
+        <h2>Follow Us</h2>
+        <ul class="footer__social">
+          {brand.socials.map((s) => (
+            <li><a href={s.href} aria-label={s.name}><Icon name={s.name.toLowerCase()} size={20} /></a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h2>Get in Touch</h2>
+        <ul>
+          <li><a href={`mailto:${brand.email}`}>{brand.email}</a></li>
+          <li><a href={`tel:${brand.phoneHref}`}>{brand.phone}</a></li>
+          <li>{brand.place}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__base">
+      <p>© {year} Makudi. All rights reserved.</p>
+      <p class="footer__line">{tagline}</p>
+    </div>
+  </div>
+</footer>

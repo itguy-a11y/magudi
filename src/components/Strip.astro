@@ -1,0 +1,17 @@
+---
+import { marquee, tagline } from '../data/site.js';
+---
+<section class="strip" aria-label="What Makudi is here to do">
+  <div class="marquee">
+    <div class="marquee__track">
+      {[0, 1].map((n) => (
+        <ul class="marquee__group" aria-hidden={n === 1 ? 'true' : undefined}>
+          {marquee.map((t) => (
+            <li><span class="marquee__dot" aria-hidden="true"></span>{t}</li>
+          ))}
+          <li class="marquee__tag"><span class="marquee__dot" aria-hidden="true"></span>{tagline}</li>
+        </ul>
+      ))}
+    </div>
+  </div>
+</section>

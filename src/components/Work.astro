@@ -1,0 +1,25 @@
+---
+import Icon from './Icon.astro';
+import { work } from '../data/site.js';
+---
+<section class="section work" id="work">
+  <div class="container">
+    <div class="sec-head sec-head--split">
+      <div>
+        <h2 class="h2" data-reveal>{work.title}</h2>
+        <p class="lead" data-reveal style="--r:1">{work.lead}</p>
+      </div>
+      <a class="link-arrow" href="/#contact" data-reveal style="--r:2"><span>{work.link}</span><Icon name="arrow" size={18} /></a>
+    </div>
+
+    <ul class="work-list">
+      {work.items.map((w, i) => (
+        <li class="work-row" data-reveal style={`--r:${i}`}>
+          <span class={`work-row__tile tone tone--${w.tone}`} aria-hidden="true"></span>
+          <h3>{w.title}</h3>
+          <p>{w.service}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

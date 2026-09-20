@@ -1,0 +1,60 @@
+---
+import Icon from './Icon.astro';
+import { hero } from '../data/site.js';
+---
+<section class="hero" id="home">
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow" data-hero style="--d:80">{hero.eyebrow}</p>
+      <h1 class="hero__title">
+        <span class="ln"><span data-hero style="--d:160">Make Your Brand</span></span>
+        <span class="ln"><span data-hero style="--d:260"><em>Unmissable</em></span></span>
+      </h1>
+      <p class="hero__lead" data-hero style="--d:420">{hero.lead}</p>
+      <div class="hero__actions" data-hero style="--d:520">
+        <a class="btn btn--gold" href="/#contact"><span>Get Started</span><Icon name="arrow" size={18} /></a>
+        <a class="btn-play" href="/#about">
+          <span class="btn-play__disc"><Icon name="play" size={16} /></span>
+          <span>Watch Our Story</span>
+        </a>
+      </div>
+
+      <dl class="stats" data-hero style="--d:640">
+        {hero.stats.map((s) => (
+          <div class="stats__item">
+            <dt>{s.label}</dt>
+            <dd><span data-count={s.value}>{s.value}</span>{s.suffix}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <div class="hero__visual" data-hero-visual>
+      <div class="story" data-story>
+        <div class="story__stage"><canvas aria-hidden="true"></canvas></div>
+
+        <ol class="story__steps">
+          {hero.steps.map((s, i) => (
+            <li>
+              <button class="step" type="button" data-step={i} aria-pressed={i === 0 ? 'true' : 'false'}>
+                <span class="step__bar" aria-hidden="true"><i></i></span>
+                <span class="step__word">{s.word}</span>
+              </button>
+            </li>
+          ))}
+        </ol>
+
+        <div class="story__lines">
+          {hero.steps.map((s, i) => (
+            <div class:list={['story__line', { 'is-active': i === 0 }]} data-line>
+              <p class="story__meaning">{s.line}</p>
+              <p class="story__help">{s.help}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <p class="hero__note" data-hero style="--d:900">{hero.note}</p>
+    </div>
+  </div>
+</section>
