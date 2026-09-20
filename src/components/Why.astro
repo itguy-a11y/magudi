@@ -6,22 +6,23 @@ import { why } from '../data/site.js';
 const titleLines = why.title.match(/[^.]+\./g) ?? [why.title];
 ---
 <section class="why" id="about">
-  <div class="why__panel">
-    <Image class="why__mark" src={mark} alt="" width={560} loading="lazy" data-spin />
-    <div class="why__panel-in">
+  <Image class="why__mark" src={mark} alt="" width={640} loading="lazy" data-spin />
+
+  <div class="container why__grid">
+    <div class="why__panel">
       <h2 class="why__display" data-reveal>
         {why.panelTitle.map((l) => <span>{l}</span>)}
       </h2>
       <a class="btn btn--gold" href="/#contact" data-reveal style="--r:1"><span>{why.cta}</span><Icon name="arrow" size={18} /></a>
     </div>
-  </div>
 
-  <div class="why__copy">
-    <p class="eyebrow" data-reveal>{why.eyebrow}</p>
-    <h2 class="h2 why__title" data-reveal style="--r:1">{titleLines.map((l) => <span>{l.trim()}</span>)}</h2>
-    <p class="why__body" data-reveal style="--r:2">{why.body}</p>
-    <ul class="why__points">
-      {why.points.map((p, i) => <li data-reveal style={`--r:${i + 3}`}>{p}</li>)}
-    </ul>
+    <div class="why__copy">
+      <p class="eyebrow" data-reveal>{why.eyebrow}</p>
+      <h2 class="h2 why__title" data-reveal style="--r:1">{titleLines.map((l) => <span>{l.trim()}</span>)}</h2>
+      <p class="why__body" data-reveal style="--r:2">{why.body}</p>
+      <ul class="why__points">
+        {why.points.map((p, i) => <li data-reveal style={`--r:${i + 3}`}>{p}</li>)}
+      </ul>
+    </div>
   </div>
 </section>

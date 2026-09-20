@@ -10,8 +10,9 @@ const N = 182;
 const STAGE_SECONDS = 4.8;
 const MORPH_SECONDS = 1.5;
 
-const INK = [20, 20, 20];
+const INK = [29, 29, 31];
 const GOLD = [253, 184, 19];
+const BLUE = [0, 113, 227];
 const FONT = '600 11px "Inter Tight Variable", "Helvetica Neue", Arial, sans-serif';
 
 const clamp01 = (x) => Math.min(1, Math.max(0, x));
@@ -356,7 +357,7 @@ export function initHeroStory(root, { reduced = false } = {}) {
       const R = frontRadius();
       const T = L.stages[2];
       ctx.lineWidth = 1;
-      ctx.strokeStyle = `rgb(${INK})`;
+      ctx.strokeStyle = `rgb(${BLUE})`;
       for (let i = 1; i < N; i++) {
         const reach = smooth(clamp01((R - extra.dist[i]) / (extra.maxR * 0.09)));
         if (reach < 0.02) continue;
@@ -435,20 +436,27 @@ export function initHeroStory(root, { reduced = false } = {}) {
         h = Math.max(h, b); r *= 1 + b * 0.6;
       }
 
-      // Visibility: dots become clearer and larger as the reach front arrives
+      // Visibility: dots become clearer, larger and blue as the reach front arrives
+      let blueT = 0;
       if (lw[2] > 0.01) {
         const reach = smooth(clamp01((R - Math.hypot(x - ox, y - oy)) / (extra.maxR * 0.09)));
         alpha *= mix(1, 0.28 + 0.72 * reach, lw[2]);
         r *= 1 + reach * 0.55 * lw[2];
+        blueT = reach * lw[2];
       }
 
       alpha *= clamp01(intro / 1.1 - d.delay * 0.6);
       if (alpha <= 0.01) continue;
 
       const gold = clamp01(h);
-      const rr = Math.round(mix(INK[0], GOLD[0], gold));
-      const gg = Math.round(mix(INK[1], GOLD[1], gold));
-      const bl = Math.round(mix(INK[2], GOLD[2], gold));
+      let rr = Math.round(mix(INK[0], GOLD[0], gold));
+      let gg = Math.round(mix(INK[1], GOLD[1], gold));
+      let bl = Math.round(mix(INK[2], GOLD[2], gold));
+      if (blueT > 0) {
+        rr = Math.round(mix(rr, BLUE[0], blueT));
+        gg = Math.round(mix(gg, BLUE[1], blueT));
+        bl = Math.round(mix(bl, BLUE[2], blueT));
+      }
 
       if (r > 2.6 && gold > 0.5) {
         ctx.globalAlpha = alpha * 0.22;
@@ -472,7 +480,7 @@ export function initHeroStory(root, { reduced = false } = {}) {
   let last = 0;
   function frame(now) {
     if (!running) return;
-    const dt = Math.min((now - last) / 1000, 0.05);
+    const dt = Math.min((now - last) / 1000, 0.25); // real elapsed time, so slow devices stay on schedule
     last = now;
     step(dt);
     draw();

@@ -13,8 +13,10 @@ import { industriesIntro, industries } from '../data/site.js';
       {industries.map((i, n) => (
         <li class={`ind tone tone--${i.tone}`} data-reveal style={`--r:${n}`}>
           <a href="/#contact">
-            <span class="ind__name">{i.short}</span>
-            <span class="ind__arrow"><Icon name="arrow" size={20} /></span>
+            <span class="ind__bar">
+              <span class="ind__name">{i.short}</span>
+              <span class="ind__arrow"><Icon name="arrow" size={18} /></span>
+            </span>
           </a>
         </li>
       ))}
