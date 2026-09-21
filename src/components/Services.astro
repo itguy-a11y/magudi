@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import { servicesIntro, services } from '../data/site.js';
+import { brands } from '../data/brands.js';
 ---
 <section class="section services" id="services">
   <div class="container services__grid">
@@ -26,6 +27,17 @@ import { servicesIntro, services } from '../data/site.js';
                 <ul class="svc__points">
                   {s.points.map((p) => <li>{p}</li>)}
                 </ul>
+                <div class="reach">
+                  <p class="reach__label">Where the work happens</p>
+                  <ul class="reach__list">
+                    {s.reach.map((key, j) => (
+                      <li class="reach__item" style={`--i:${j};--c:#${brands[key].hex}`}>
+                        <span class="reach__tile"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={brands[key].path} /></svg></span>
+                        <span class="reach__name">{brands[key].title}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
                 <a class="link-arrow" href="/#contact"><span>Talk to us about this</span><Icon name="arrow" size={18} /></a>
               </div>
             </div>

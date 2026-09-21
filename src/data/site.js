@@ -78,36 +78,43 @@ export const servicesIntro = {
   lead: 'From strategy to execution, we help your brand reach the right people, in the right way.',
 };
 
+// `reach` lists the real platforms and tools each service works on, shown as brand icons when the
+// service is expanded. Each key must exist in brands.js.
 export const services = [
   {
     name: 'Social Media Marketing',
     text: 'Engage, build community and grow your brand.',
     help: 'We look at what your audience already responds to, then plan a content calendar, a posting rhythm and community replies around it. Each month we review reach and engagement and adjust the mix, so your strategy keeps sharpening instead of going stale.',
     points: ['A content calendar built around your audience', 'Comments and messages answered in your voice', 'A monthly reach and engagement review'],
+    reach: ['instagram', 'facebook', 'x', 'linkedin', 'youtube', 'whatsapp', 'pinterest'],
   },
   {
     name: 'Google Ads',
     text: 'Reach the right audience and get real results.',
     help: 'We research the searches your customers really make, build tightly targeted campaigns and test different ads against each other. Spend moves toward what brings enquiries and away from what does not, so your budget works harder every week.',
     points: ['Keyword and audience research', 'Ad copy and landing pages tested side by side', 'Budget shifted toward what converts'],
+    reach: ['googleads', 'google', 'googlemaps', 'youtube', 'googleanalytics', 'googletagmanager'],
   },
   {
     name: 'Content Creation',
     text: 'Scroll-stopping content that tells your story.',
     help: 'Photos, short videos and written posts that share one voice and tell your story the same way everywhere. We plan content around what you sell and when people buy, so it supports your strategy instead of just filling a feed.',
     points: ['Photo, video and copy in one consistent voice', 'Planned around your busy and quiet seasons', 'Formats matched to each platform'],
+    reach: ['canva', 'photoshop', 'premiere', 'illustrator', 'instagram', 'youtubeshorts'],
   },
   {
     name: 'Brand Strategy',
     text: 'Positioning and strategy for long-term growth.',
     help: 'We define who you are for, what you stand for and how you sound, then turn that into positioning every channel can follow. It is the base that keeps your marketing consistent and makes each decision after it easier.',
     points: ['Audience and positioning workshop', 'Voice, look and message guidelines', 'A clear roadmap for the months ahead'],
+    reach: ['figma', 'behance', 'dribbble', 'pinterest', 'notion'],
   },
   {
     name: 'Website Design & SEO',
     text: 'Beautiful, functional websites that bring results.',
     help: 'We design a fast, mobile-friendly site that makes the next step obvious, then set up the search basics so people can find it. Over time we watch what visitors do and refine the pages to bring in more enquiries.',
     points: ['Mobile-first design that loads fast', 'On-page SEO and local search set-up', 'Tracking, to see what visitors actually do'],
+    reach: ['wordpress', 'shopify', 'wix', 'webflow', 'googlesearchconsole', 'semrush', 'googleanalytics'],
   },
 ];
 
