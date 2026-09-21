@@ -129,8 +129,8 @@ async function initHeroStory() {
   const story = document.querySelector('[data-story]');
   if (!story) return;
   try {
-    const { initHeroStory } = await import('./hero-story.js');
-    initHeroStory(story, { reduced: !motion });
+    const { initHeroStory } = await import('./hero-scenes.js');
+    initHeroStory(story);
   } catch (err) {
     // the step labels and captions still work as plain content
     console.warn('Hero animation unavailable.', err);

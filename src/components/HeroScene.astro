@@ -1,0 +1,90 @@
+---
+import { hero } from '../data/site.js';
+---
+<div class="stage" data-stage data-scene="0" aria-hidden="true">
+  <!-- soft coloured light that drifts between scenes -->
+  <i class="aura aura-y"></i>
+  <i class="aura aura-b"></i>
+
+  <!-- Visibility: ripples -->
+  <i class="ring" style="--k:0"></i>
+  <i class="ring" style="--k:1"></i>
+  <i class="ring" style="--k:2"></i>
+
+  <!-- Growth: bars, baseline, trend line, end marker -->
+  <i class="bar" style="--x:17;--h:14;--i:0"></i>
+  <i class="bar" style="--x:33;--h:26;--i:1"></i>
+  <i class="bar" style="--x:50;--h:38;--i:2"></i>
+  <i class="bar" style="--x:67;--h:50;--i:3"></i>
+  <i class="bar" style="--x:83;--h:62;--i:4"></i>
+  <i class="baseline"></i>
+  <svg class="trend" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+    <polyline points="17,76 33,64 50,52 67,40 83,28 93,23" />
+  </svg>
+  <i class="endpoint"></i>
+
+  <!-- Ideas: twinkling sparkles -->
+  {[[35, 27], [66, 26], [69, 62], [31, 66]].map(([x, y], i) => (
+    <svg class:list={['spark', `sp-${i}`]} style={`--x:${x};--y:${y};--i:${i}`} viewBox="0 0 24 24" focusable="false">
+      <path d="M12 0C12 7 17 12 24 12 17 12 12 17 12 24 12 17 7 12 0 12 7 12 12 7 12 0z" />
+    </svg>
+  ))}
+
+  <!-- the big icon: a frosted-glass tile that holds a different line icon per scene -->
+  <div class="hero-ico">
+    <!-- 0 · Ideas: light bulb -->
+    <svg class="ico ico-0" viewBox="0 0 120 120" fill="none" stroke="#1d1d1f" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+      <path d="M60 10C36 10 22 28 22 48c0 14 8 22 14 30 4 6 4 10 4 14h40c0-4 0-8 4-14 6-8 14-16 14-30 0-20-14-38-38-38z" fill="#fdb813" />
+      <path d="M42 102h36M47 111h26" />
+      <path d="M50 92V64M70 92V64M50 64c0-13 20-13 20 0" stroke-width="2.6" />
+      <path d="M36 38c2-9 9-16 18-18" stroke="#ffffff" stroke-width="4.5" opacity="0.9" />
+    </svg>
+    <!-- 1 · Strategy: target + arrow -->
+    <svg class="ico ico-1" viewBox="0 0 120 120" fill="none" stroke="#1d1d1f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+      <circle cx="60" cy="60" r="48" fill="#ffffff" />
+      <circle cx="60" cy="60" r="32" fill="#f1f1f4" />
+      <circle cx="60" cy="60" r="16" fill="#fdb813" />
+      <circle cx="60" cy="60" r="4" fill="#1d1d1f" stroke="none" />
+      <g class="arrow" stroke="#0071e3" stroke-width="4.6">
+        <path d="M60 60L101 19" />
+        <path d="M101 19V6M101 19h13" />
+      </g>
+    </svg>
+    <!-- 2 · Visibility: megaphone -->
+    <svg class="ico ico-2" viewBox="0 0 120 120" fill="none" stroke="#1d1d1f" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+      <path d="M26 46L74 26v68L26 74z" fill="#fdb813" />
+      <path d="M26 46H14v28h12" fill="#ffffff" />
+      <path d="M36 78l6 22h12l-4-16" fill="#1d1d1f" />
+      <path d="M84 44c7 7 7 19 0 26" stroke="#0071e3" stroke-width="4.2" />
+      <path d="M94 33c12 12 12 36 0 48" stroke="#0071e3" stroke-width="4.2" />
+    </svg>
+    <!-- 3 · Growth: bars + rising arrow -->
+    <svg class="ico ico-3" viewBox="0 0 120 120" fill="none" stroke="#1d1d1f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+      <rect x="20" y="72" width="20" height="30" rx="5" fill="#fdb813" />
+      <rect x="50" y="54" width="20" height="48" rx="5" fill="#fdb813" />
+      <rect x="80" y="34" width="20" height="68" rx="5" fill="#fdb813" />
+      <path d="M18 46L48 26l14 10 34-24" stroke="#0071e3" stroke-width="4.4" />
+      <path d="M80 12h16v16" stroke="#0071e3" stroke-width="4.4" />
+    </svg>
+  </div>
+
+  <!-- Visibility: audience -->
+  {[0, 1, 2, 3, 4, 5].map((i) => (
+    <i class:list={['aud', `aud-${i}`]} style={`--i:${i}`}>
+      <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="9" r="4" /><path d="M4 21c1-5 5-7 8-7s7 2 8 7z" /></svg>
+    </i>
+  ))}
+
+  <!-- the five glass chips: the same objects in every scene -->
+  {hero.chips.map((labels, i) => (
+    <div class:list={['chip', `c${i + 1}`]} style={`--i:${i}`}>
+      <div class="chip__in">
+        <span class="chip__dot"></span>
+        <span class="chip__label">{labels.map((l) => <span>{l}</span>)}</span>
+        <span class="chip__tick"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="10" /><path d="M5.5 10.5l3 3 6-6.5" /></svg></span>
+      </div>
+    </div>
+  ))}
+
+  <i class="stage__sheen"></i>
+</div>

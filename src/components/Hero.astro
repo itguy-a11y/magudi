@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import HeroScene from './HeroScene.astro';
 import { hero } from '../data/site.js';
 ---
 <section class="hero" id="home">
@@ -31,7 +32,7 @@ import { hero } from '../data/site.js';
 
     <div class="hero__visual" data-hero-visual>
       <div class="story" data-story>
-        <div class="story__stage"><canvas aria-hidden="true"></canvas></div>
+        <div class="story__stage"><HeroScene /></div>
 
         <ol class="story__steps">
           {hero.steps.map((s, i) => (

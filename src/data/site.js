@@ -37,6 +37,15 @@ export const hero = {
       help: 'We track what works, do more of it, and report back in plain numbers you can act on.',
     },
   ],
+  // The five glass chips in the hero scene. Each chip has one label per step
+  // (Ideas, Strategy, Visibility, Growth) and rearranges itself between scenes.
+  chips: [
+    ['Reel', 'Audience', 'Social', 'Followers'],
+    ['Story', 'Channels', 'Search', 'Enquiries'],
+    ['Offer', 'Content plan', 'Ads', 'Sales'],
+    ['Blog post', 'Budget', 'Maps', 'Reviews'],
+    ['Poster', 'Goal', 'Website', 'Reach'],
+  ],
   note: 'Every great brand deserves to be heard.',
   stats: [
     { value: 50, suffix: '+', label: 'Happy Clients' },
