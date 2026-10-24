@@ -260,8 +260,8 @@ em { font-style: normal; }
 .ln { display: block; overflow: hidden; padding: 0.04em 0.06em 0.14em; margin: -0.04em -0.06em -0.14em; }
 .ln > span { display: inline-block; }
 
+.eyebrow--sub { color: var(--ink-soft); margin-top: 2px; }
 .hero__lead { margin-top: clamp(20px, 2.4vw, 30px); max-width: 40ch; color: var(--ink-soft); font-size: clamp(1.06rem, 1.35vw, 1.22rem); }
-.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; margin-top: clamp(24px, 3vw, 36px); }
 
 .stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(30px, 4.5vw, 52px); }
 .stats__item {
@@ -530,11 +530,21 @@ em { font-style: normal; }
 .story__meaning { font-family: var(--f-display); font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.3rem); line-height: 1.25; letter-spacing: -0.02em; }
 .story__help { max-width: 54ch; color: var(--ink-soft); font-size: clamp(0.98rem, 1.2vw, 1.05rem); line-height: 1.5; }
 
-.hero__note {
-  justify-self: end; max-width: none; text-align: right;
-  font-family: var(--f-display); font-weight: 650; color: var(--black);
-  font-size: clamp(1.2rem, 2.1vw, 1.6rem); line-height: 1.2; letter-spacing: -0.03em; text-wrap: balance;
+/* the 3-column feature strip under the hero (spans both columns of .hero__grid) */
+.hero__features { grid-column: 1 / -1; display: grid; gap: clamp(16px, 2.4vw, 24px); margin-top: clamp(16px, 2.4vw, 24px); }
+.hero__feature {
+  display: grid; gap: 10px; justify-items: start;
+  padding: clamp(20px, 2.4vw, 28px); border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.5); border: 1px solid var(--glass-edge);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
 }
+.hero__feature-icon {
+  display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%;
+  background: rgba(253, 184, 19, 0.2); color: var(--ink);
+}
+.hero__feature h3 { font-family: var(--f-display); font-weight: 650; font-size: 1.05rem; letter-spacing: -0.02em; }
+.hero__feature p { color: var(--ink-soft); font-size: 0.92rem; line-height: 1.45; }
+@media (min-width: 760px) { .hero__features { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* hero entrance (CSS-only so it never waits on JS bundles) */
 .motion-ok [data-hero] { opacity: 0; translate: 0 22px; animation: heroIn 1s var(--ease) forwards; animation-delay: calc(var(--d, 0) * 1ms + 120ms); }
@@ -595,6 +605,7 @@ em { font-style: normal; }
 }
 .why__display span { display: block; }
 .why__display span:last-child { color: var(--yellow); }
+.why__panel-body { color: rgba(255, 255, 255, 0.74); font-size: clamp(1.03rem, 1.25vw, 1.14rem); max-width: 46ch; }
 
 .why__copy {
   display: grid; gap: clamp(14px, 1.8vw, 20px); padding: clamp(24px, 3.6vw, 48px);
@@ -607,9 +618,14 @@ em { font-style: normal; }
 .why__body { color: rgba(255, 255, 255, 0.74); font-size: clamp(1.03rem, 1.25vw, 1.14rem); max-width: 52ch; }
 .why__points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 6px; }
 .why__points li {
-  padding: 14px 16px; border-radius: var(--r-sm);
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; border-radius: var(--r-sm);
   background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.12);
-  font-family: var(--f-display); font-weight: 600; font-size: clamp(0.98rem, 1.3vw, 1.1rem); line-height: 1.25; letter-spacing: -0.02em;
+  font-family: var(--f-display); font-weight: 600; font-size: clamp(0.94rem, 1.2vw, 1.03rem); line-height: 1.25; letter-spacing: -0.02em;
+}
+.why__point-icon {
+  flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(253, 184, 19, 0.16); color: var(--yellow);
 }
 
 @media (min-width: 960px) { .why__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); } }
@@ -625,6 +641,8 @@ em { font-style: normal; }
   display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 20px;
   width: 100%; text-align: left; padding: clamp(18px, 2.2vw, 26px) clamp(18px, 2.4vw, 28px); cursor: pointer; border-radius: inherit;
 }
+.svc__title { grid-column: 1; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; }
+.svc__num { font-family: var(--f-display); font-weight: 650; font-size: 0.9rem; color: var(--blue); letter-spacing: 0.02em; }
 .svc__name { font-family: var(--f-display); font-weight: 650; font-size: clamp(1.3rem, 2.3vw, 1.9rem); line-height: 1.1; letter-spacing: -0.035em; }
 .svc__desc { grid-column: 1; color: var(--ink-soft); font-size: 0.98rem; line-height: 1.45; }
 .svc__icon {
@@ -682,6 +700,23 @@ em { font-style: normal; }
   .services__grid { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(48px, 8vw, 120px); }
   .services__head { position: sticky; top: calc(var(--header-h) + 24px); align-self: start; }
 }
+
+/* ---------- Our Approach ---------- */
+.approach__grid { display: grid; gap: clamp(28px, 5vw, 56px); }
+.approach__head { display: grid; gap: 16px; max-width: 56ch; }
+.approach__list { display: grid; gap: 16px; }
+.approach__item {
+  display: grid; gap: 10px; justify-items: start;
+  padding: clamp(22px, 2.6vw, 30px); border-radius: var(--r-md);
+  background: var(--glass); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow);
+}
+.approach__icon {
+  display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%;
+  background: rgba(0, 113, 227, 0.12); color: var(--blue);
+}
+.approach__item h3 { font-family: var(--f-display); font-weight: 650; font-size: 1.15rem; letter-spacing: -0.025em; }
+.approach__item p { color: var(--ink-soft); font-size: 0.97rem; line-height: 1.5; }
+@media (min-width: 760px) { .approach__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* ---------- Tone tiles (stand-ins for photography; put an <img> inside to replace) ---------- */
 .tone { background-color: var(--tone-bg); color: var(--tone-fg); }
@@ -814,6 +849,7 @@ em { font-style: normal; }
 .footer__col a { display: inline-flex; align-items: center; min-height: 32px; transition: color 0.25s; }
 .footer__col a:hover { color: var(--white); }
 .footer__col li:not(:has(a)) { min-height: 32px; display: flex; align-items: center; }
+.footer__address { align-items: flex-start !important; line-height: 1.5; white-space: normal; padding-block: 2px 0; }
 .footer__social { display: flex !important; flex-wrap: wrap; gap: 10px !important; }
 .footer__col--social { grid-column: 1 / -1; }
 .footer__social a {

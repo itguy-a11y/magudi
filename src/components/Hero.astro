@@ -1,33 +1,18 @@
 ---
 import Icon from './Icon.astro';
 import HeroScene from './HeroScene.astro';
-import { hero } from '../data/site.js';
+import { hero, heroFeatures } from '../data/site.js';
 ---
 <section class="hero" id="home">
   <div class="container hero__grid">
     <div class="hero__copy">
       <p class="eyebrow" data-hero style="--d:80">{hero.eyebrow}</p>
+      <p class="eyebrow eyebrow--sub" data-hero style="--d:120">{hero.subEyebrow}</p>
       <h1 class="hero__title">
         <span class="ln"><span data-hero style="--d:160">Make Your Brand</span></span>
         <span class="ln"><span data-hero style="--d:260"><em>Unmissable</em></span></span>
       </h1>
       <p class="hero__lead" data-hero style="--d:420">{hero.lead}</p>
-      <div class="hero__actions" data-hero style="--d:520">
-        <a class="btn btn--gold" href="/#contact"><span>Get Started</span><Icon name="arrow" size={18} /></a>
-        <a class="btn-play" href="/#about">
-          <span class="btn-play__disc"><Icon name="play" size={16} /></span>
-          <span>Watch Our Story</span>
-        </a>
-      </div>
-
-      <dl class="stats" data-hero style="--d:640">
-        {hero.stats.map((s) => (
-          <div class="stats__item">
-            <dt>{s.label}</dt>
-            <dd><span data-count={s.value}>{s.value}</span>{s.suffix}</dd>
-          </div>
-        ))}
-      </dl>
     </div>
 
     <div class="hero__visual" data-hero-visual>
@@ -54,8 +39,16 @@ import { hero } from '../data/site.js';
           ))}
         </div>
       </div>
-
-      <p class="hero__note" data-hero style="--d:900">{hero.note}</p>
     </div>
+
+    <ul class="hero__features">
+      {heroFeatures.map((f, i) => (
+        <li class="hero__feature" data-reveal style={`--r:${i}`}>
+          <span class="hero__feature-icon"><Icon name={f.icon} size={22} /></span>
+          <h3>{f.title}</h3>
+          <p>{f.text}</p>
+        </li>
+      ))}
+    </ul>
   </div>
 </section>

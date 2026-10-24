@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+import { approach } from '../data/site.js';
+---
+<section class="section approach" id="approach">
+  <div class="container approach__grid">
+    <div class="approach__head">
+      <h2 class="h2" data-reveal>{approach.title}</h2>
+      <p class="lead" data-reveal style="--r:1">{approach.lead}</p>
+    </div>
+
+    <ul class="approach__list">
+      {approach.points.map((p, i) => (
+        <li class="approach__item" data-reveal style={`--r:${i + 2}`}>
+          <span class="approach__icon"><Icon name={p.icon} size={22} /></span>
+          <h3>{p.title}</h3>
+          <p>{p.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

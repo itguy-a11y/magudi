@@ -15,7 +15,7 @@ import { brands } from '../data/brands.js';
         <li class:list={['svc', { 'is-open': i === 0 }]} data-svc data-reveal style={`--r:${i}`}>
           <h3 class="svc__head">
             <button type="button" id={`svc-btn-${i}`} aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`svc-panel-${i}`}>
-              <span class="svc__name">{s.name}</span>
+              <span class="svc__title"><span class="svc__num" aria-hidden="true">{s.num}</span><span class="svc__name">{s.name}</span></span>
               <span class="svc__desc">{s.text}</span>
               <span class="svc__icon" aria-hidden="true"><Icon name="plus" size={22} /></span>
             </button>

@@ -22,3 +22,65 @@ const { name, size = 20 } = Astro.props;
 {name === 'plus' && (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
 )}
+{name === 'compass' && (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="9.2" fill="#fdb813" />
+    <circle cx="12" cy="12" r="9.2" fill="none" stroke="#1d1d1f" stroke-width="1.1" opacity="0.15" />
+    <path d="M15.1 8.9 10.4 10.4 8.9 15.1 13.6 13.6Z" fill="#1d1d1f" />
+    <path d="M13.6 10.4 10.4 13.6" stroke="#fdb813" stroke-width="0.9" stroke-linecap="round" />
+    <circle cx="12" cy="12" r="1.3" fill="#fff" />
+  </svg>
+)}
+{name === 'bulb' && (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 2.5a6.5 6.5 0 0 0-3.5 12c.7.5 1.1 1.2 1.1 2h4.8c0-.8.4-1.5 1.1-2a6.5 6.5 0 0 0-3.5-12Z" fill="#fdb813" />
+    <path d="M9.4 18.6h5.2M10 20.9h4" stroke="#1d1d1f" stroke-width="1.3" stroke-linecap="round" />
+    <path d="M9.6 6.7c.9-1 2-1.5 3.3-1.6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.9" />
+    <circle cx="12" cy="11.2" r="1.6" fill="#1d1d1f" opacity="0.18" />
+  </svg>
+)}
+{name === 'target' && (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="9.2" fill="#fdb813" />
+    <circle cx="12" cy="12" r="6.1" fill="#fff" />
+    <circle cx="12" cy="12" r="6.1" fill="none" stroke="#1d1d1f" stroke-width="1" opacity="0.15" />
+    <circle cx="12" cy="12" r="3" fill="#fdb813" />
+    <circle cx="12" cy="12" r="1.3" fill="#0071e3" />
+  </svg>
+)}
+{name === 'palette' && (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 3a9 9 0 1 0 0 18c1.2 0 2.2-.9 2.2-2.2 0-.5-.2-1-.5-1.4-.3-.4-.5-.8-.5-1.3 0-.9.8-1.6 1.7-1.6H17a4.3 4.3 0 0 0 4.3-4.3C21.3 5.7 17.1 3 12 3Z" fill="#fdb813" />
+    <circle cx="7.3" cy="12.1" r="1.5" fill="#1d1d1f" />
+    <circle cx="9.3" cy="7.6" r="1.5" fill="#0071e3" />
+    <circle cx="15.2" cy="7.1" r="1.5" fill="#1d1d1f" />
+  </svg>
+)}
+{name === 'chart' && (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="3.3" y="13" width="4.2" height="8" rx="1.3" fill="#fdb813" />
+    <rect x="9.9" y="7.2" width="4.2" height="13.8" rx="1.3" fill="#0071e3" />
+    <rect x="16.5" y="3" width="4.2" height="18" rx="1.3" fill="#1d1d1f" />
+  </svg>
+)}
+{name === 'heart' && (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 20.3S2.9 14.9 2.9 8.9C2.9 5.7 5.3 3.5 8.2 3.5c1.7 0 3.3.9 3.8 2.5.5-1.6 2.1-2.5 3.8-2.5 2.9 0 5.3 2.2 5.3 5.4 0 6-9.1 11.4-9.1 11.4Z" fill="#fdb813" />
+    <circle cx="16.6" cy="7.6" r="1.4" fill="#fff" opacity="0.55" />
+  </svg>
+)}
+{name === 'rocket' && (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 2.2c3.4 1.4 5.6 5 5.6 9.1 0 2.3-.9 4.4-2.1 5.9l1 4.5-3.5-2.2-3.5 2.2 1-4.5c-1.2-1.5-2.1-3.6-2.1-5.9 0-4.1 2.2-7.7 5.6-9.1Z" fill="#fdb813" />
+    <circle cx="12" cy="10.6" r="1.7" fill="#1d1d1f" />
+    <path d="M8.1 17.9 5 21M15.9 17.9l3 3.1" stroke="#0071e3" stroke-width="1.6" stroke-linecap="round" />
+  </svg>
+)}
+{name === 'users' && (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="9.2" cy="8" r="3.5" fill="#fdb813" />
+    <path d="M2.4 20.3c.6-3.8 3.1-6 6.8-6s6.2 2.2 6.8 6Z" fill="#fdb813" />
+    <circle cx="17.5" cy="9" r="2.7" fill="#0071e3" />
+    <path d="M15.6 14.8c2.9.3 4.6 2.2 5.1 5.5h-3.4" fill="#0071e3" />
+  </svg>
+)}

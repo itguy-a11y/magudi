@@ -10,18 +10,25 @@ const titleLines = why.title.match(/[^.]+\./g) ?? [why.title];
 
   <div class="container why__grid">
     <div class="why__panel">
-      <h2 class="why__display" data-reveal>
+      <p class="eyebrow" data-reveal>{why.sectionLabel}</p>
+      <h2 class="why__display" data-reveal style="--r:1">
         {why.panelTitle.map((l) => <span>{l}</span>)}
       </h2>
-      <a class="btn btn--gold" href="/#contact" data-reveal style="--r:1"><span>{why.cta}</span><Icon name="arrow" size={18} /></a>
+      <p class="why__panel-body" data-reveal style="--r:2">{why.panelBody}</p>
+      <a class="btn btn--gold" href="/#contact" data-reveal style="--r:3"><span>{why.cta}</span><Icon name="arrow" size={18} /></a>
     </div>
 
     <div class="why__copy">
       <p class="eyebrow" data-reveal>{why.eyebrow}</p>
       <h2 class="h2 why__title" data-reveal style="--r:1">{titleLines.map((l) => <span>{l.trim()}</span>)}</h2>
-      <p class="why__body" data-reveal style="--r:2">{why.body}</p>
+      {why.body.map((p, i) => <p class="why__body" data-reveal style={`--r:${i + 2}`}>{p}</p>)}
       <ul class="why__points">
-        {why.points.map((p, i) => <li data-reveal style={`--r:${i + 3}`}>{p}</li>)}
+        {why.points.map((p, i) => (
+          <li data-reveal style={`--r:${i + why.body.length + 2}`}>
+            <span class="why__point-icon"><Icon name={p.icon} size={20} /></span>
+            <span>{p.label}</span>
+          </li>
+        ))}
       </ul>
     </div>
   </div>

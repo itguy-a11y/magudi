@@ -6,14 +6,15 @@ export const nav = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/#about' },
   { label: 'Services', href: '/#services' },
-  { label: 'Our Work', href: '/#work' },
+  { label: 'Our Approach', href: '/#approach' },
   { label: 'Blog', href: '/blog/' },
   { label: 'Contact', href: '/#contact' },
 ];
 
 export const hero = {
   eyebrow: 'Digital Marketing Agency in Kochi',
-  lead: 'We blend strategy, creativity and technology to help your business get noticed, grow and build lasting connections.',
+  subEyebrow: 'Your Complete Marketing Solution',
+  lead: 'We bring strategy, creativity, technology and execution together to help businesses build meaningful brands, reach the right audiences and earn attention that matters.',
   // The four beats of the hero animation, in order.
   steps: [
     {
@@ -46,13 +47,19 @@ export const hero = {
     ['Blog post', 'Budget', 'Maps', 'Reviews'],
     ['Poster', 'Goal', 'Website', 'Reach'],
   ],
-  note: 'Every great brand deserves to be heard.',
   stats: [
     { value: 50, suffix: '+', label: 'Happy Clients' },
     { value: 100, suffix: '+', label: 'Campaigns' },
     { value: 3, suffix: 'x', label: 'Average Growth' },
   ],
 };
+
+// The 3-column strip under the hero.
+export const heroFeatures = [
+  { icon: 'compass', title: 'Strategy-Led Approach', text: 'Clear thinking before execution.' },
+  { icon: 'bulb', title: 'Expert Guidance', text: 'Guidance from people who are the best at what they do.' },
+  { icon: 'target', title: 'Result-Focused', text: 'Every move is measured by the results it brings.' },
+];
 
 export const industries = [
   { name: 'Boutiques & Textiles', short: 'Boutiques & Textiles', tone: 'weave' },
@@ -75,56 +82,92 @@ export const tagline = 'Different Businesses. One Sound. Attention.';
 
 export const servicesIntro = {
   title: 'Our Services',
-  lead: 'From strategy to execution, we help your brand reach the right people, in the right way.',
+  lead: 'From strategy to execution, Makudi brings together the right specialists to deliver the right solution for every brand.',
 };
 
 // `reach` lists the real platforms and tools each service works on, shown as brand icons when the
 // service is expanded. Each key must exist in brands.js.
 export const services = [
   {
-    name: 'Social Media Marketing',
-    text: 'Engage, build community and grow your brand.',
-    help: 'We look at what your audience already responds to, then plan a content calendar, a posting rhythm and community replies around it. Each month we review reach and engagement and adjust the mix, so your strategy keeps sharpening instead of going stale.',
-    points: ['A content calendar built around your audience', 'Comments and messages answered in your voice', 'A monthly reach and engagement review'],
-    reach: ['instagram', 'facebook', 'x', 'linkedin', 'youtube', 'whatsapp', 'pinterest'],
+    num: '01',
+    name: 'Strategy & Branding',
+    text: 'Build a brand with purpose and position it for the right audience.',
+    help: 'We start by understanding your business, your market and the people you want to reach. From there we shape a clear positioning, a distinct voice and a visual identity that holds together across every touchpoint, so your brand has a strong foundation to grow on.',
+    points: ['Audience and market research', 'Positioning, voice and messaging', 'Visual identity guidelines'],
+    reach: ['figma', 'behance', 'dribbble', 'notion', 'pinterest'],
   },
   {
-    name: 'Google Ads',
-    text: 'Reach the right audience and get real results.',
-    help: 'We research the searches your customers really make, build tightly targeted campaigns and test different ads against each other. Spend moves toward what brings enquiries and away from what does not, so your budget works harder every week.',
-    points: ['Keyword and audience research', 'Ad copy and landing pages tested side by side', 'Budget shifted toward what converts'],
-    reach: ['googleads', 'google', 'googlemaps', 'youtube', 'googleanalytics', 'googletagmanager'],
+    num: '02',
+    name: 'Digital & Performance Marketing',
+    text: 'Reach the right people through the right digital channels.',
+    help: 'We plan and run paid campaigns across search, social and display, built around clear goals and real budgets. Every campaign is tracked and optimised against the numbers that matter, so spend keeps moving toward what actually brings enquiries and sales.',
+    points: ['Search, social and display campaigns', 'Budgets tracked against real results', 'Monthly performance reporting'],
+    reach: ['googleads', 'google', 'facebook', 'instagram', 'googleanalytics', 'googletagmanager'],
   },
   {
-    name: 'Content Creation',
-    text: 'Scroll-stopping content that tells your story.',
-    help: 'Photos, short videos and written posts that share one voice and tell your story the same way everywhere. We plan content around what you sell and when people buy, so it supports your strategy instead of just filling a feed.',
-    points: ['Photo, video and copy in one consistent voice', 'Planned around your busy and quiet seasons', 'Formats matched to each platform'],
-    reach: ['canva', 'photoshop', 'premiere', 'illustrator', 'instagram', 'youtubeshorts'],
+    num: '03',
+    name: 'Content & Creative',
+    text: 'Create ideas, stories and visuals that make people stop and notice.',
+    help: 'Photos, graphics and written content built around what your brand stands for and what your audience actually responds to. We plan it around your calendar and your platforms, so every post feels considered rather than filler.',
+    points: ['Photo and graphic content', 'Copywriting in your brand voice', 'A content calendar built around your audience'],
+    reach: ['canva', 'photoshop', 'illustrator', 'instagram', 'pinterest'],
   },
   {
-    name: 'Brand Strategy',
-    text: 'Positioning and strategy for long-term growth.',
-    help: 'We define who you are for, what you stand for and how you sound, then turn that into positioning every channel can follow. It is the base that keeps your marketing consistent and makes each decision after it easier.',
-    points: ['Audience and positioning workshop', 'Voice, look and message guidelines', 'A clear roadmap for the months ahead'],
-    reach: ['figma', 'behance', 'dribbble', 'pinterest', 'notion'],
+    num: '04',
+    name: 'Video & Production',
+    text: 'Turn your brand story into engaging visual experiences.',
+    help: 'From short reels to full brand films, we plan, shoot and edit video that holds attention and tells your story clearly. Every piece is built for the platform it will live on, from a quick vertical reel to a longer, considered brand video.',
+    points: ['Concept, shoot and edit, start to finish', 'Short-form video for social platforms', 'Brand films and product videos'],
+    reach: ['youtube', 'youtubeshorts', 'premiere', 'instagram', 'facebook'],
   },
   {
-    name: 'Website Design & SEO',
-    text: 'Beautiful, functional websites that bring results.',
-    help: 'We design a fast, mobile-friendly site that makes the next step obvious, then set up the search basics so people can find it. Over time we watch what visitors do and refine the pages to bring in more enquiries.',
+    num: '05',
+    name: 'Web & Technology',
+    text: 'Build digital experiences that attract, engage and convert.',
+    help: 'We design and build fast, mobile-friendly websites that make the next step obvious, then set up the search basics so people can find them. Over time we watch what visitors actually do and refine the site to bring in more enquiries.',
     points: ['Mobile-first design that loads fast', 'On-page SEO and local search set-up', 'Tracking, to see what visitors actually do'],
-    reach: ['wordpress', 'shopify', 'wix', 'webflow', 'googlesearchconsole', 'semrush', 'googleanalytics'],
+    reach: ['wordpress', 'shopify', 'wix', 'webflow', 'googlesearchconsole', 'semrush'],
+  },
+  {
+    num: '06',
+    name: 'PR, Influencer & Offline Marketing',
+    text: 'Take your brand beyond the screen and into the real world.',
+    help: 'We build relationships with the right influencers and media, and plan offline moments, from launches to print and local activations, that put your brand in front of real people. It is marketing your audience experiences first-hand, not just scrolls past.',
+    points: ['Influencer partnerships matched to your brand', 'Press and media outreach', 'Offline activations and launches'],
+    reach: ['instagram', 'youtube', 'linkedin', 'x', 'whatsapp'],
   },
 ];
 
+export const approach = {
+  title: 'Our Approach',
+  lead: 'What makes us different? We don’t just run campaigns, we build attention with intention.',
+  points: [
+    { icon: 'compass', title: 'We think before we execute', text: 'Every campaign starts with a strategy, not a template.' },
+    { icon: 'users', title: 'We stay close to the work', text: 'Close collaboration, from the first idea to the last report.' },
+    { icon: 'chart', title: 'We measure what matters', text: 'Clear numbers, reported in plain language, every month.' },
+  ],
+};
+
 export const why = {
-  panelTitle: ['Modern Marketing.', 'A Timeless Inspiration.'],
+  sectionLabel: 'About Us',
+  panelTitle: ['From a Traditional Sound', 'to a Modern Strategy'],
+  panelBody: 'From strategy to execution, we help your brand reach the right people, in the right way.',
   cta: 'About Makudi',
   eyebrow: 'Why Makudi',
-  title: 'Inspired by Tradition. Driven by Results.',
-  body: 'The makudi, a humble yet powerful instrument, has always had the unique ability to draw attention. At Makudi, we bring that same essence to the digital world — helping your brand stand out in a noisy marketplace.',
-  points: ['Creative Approach', 'Data-Driven Strategies', 'Personalized Support', 'Your Growth, Our Priority'],
+  title: 'A Tradition of Drawing Attention.',
+  body: [
+    'Rooted in a traditional instrument and inspired by its unmistakable presence, Makudi carries an old idea into a new world: Attention matters.',
+    'In South Indian lore and traditional arts, the makudi has always held an extraordinary, legendary capability: the sheer power to capture complete, undivided, hypnotic attention with a single sustained tone. It is played to capture the attention, creating a fascinating interplay of sound, movement and response.',
+    'That idea inspires us at Makudi. In today’s digital world, your brand is surrounded by countless voices competing for attention. The challenge isn’t simply to be seen, it’s to create something that makes people stop, notice and respond.',
+    'The makudi draws attention.',
+    'Makudi turns attention into connection.',
+  ],
+  points: [
+    { icon: 'palette', label: 'Creative Approach' },
+    { icon: 'chart', label: 'Data-Driven Strategy' },
+    { icon: 'heart', label: 'Personalized Support' },
+    { icon: 'rocket', label: 'Your Growth, Our Priority' },
+  ],
 };
 
 export const industriesIntro = {
@@ -175,10 +218,10 @@ export const cta = {
 
 export const brand = {
   tagline: 'The Art of Drawing Attention',
-  email: 'hello@makudi.in',
-  phone: '+91 98765 43210',
-  phoneHref: '+919876543210',
-  place: 'Kochi, Kerala',
+  email: 'makudimedia@gmail.com',
+  phone: '+91 97780 65727',
+  phoneHref: '+919778065727',
+  place: 'LR Tower, SJRRA 104, S. Janatha Rd, Palarivattom, Kochi 682025',
   socials: [
     { name: 'Instagram', href: '#' },
     { name: 'Facebook', href: '#' },
